@@ -74,60 +74,6 @@ delivery-system/
 # Start all services
 docker-compose up --build
 
-
-
-
----
-
-## 📐 System Architecture
-
-![Architecture Diagram](https://raw.githubusercontent.com/vanlinh00/delivery-system/main/docs/architecture-diagram.png)
-
-> **Ghi chú:** Nếu bạn chưa có ảnh thật sự, bạn có thể tự tạo sơ đồ kiến trúc đơn giản rồi lưu vào thư mục `docs/` trong project với tên `architecture-diagram.png`. Ví dụ sơ đồ nên vẽ như sau:
->
-> ```
-> +-------------+       REST        +--------------+         Kafka        +----------------+
-> |  Clients    |  ------------->  | auth-service |  ----------------->  | pickup-service |
-> +-------------+                 +--------------+                       +----------------+
->                                    |                                        |
->                                    |        REST + JWT                     |     REST
->                                    v                                        v
->                             +----------------+                        +-------------------+
->                             | delivery-service| <------------------- |     Redis / DB     |
->                             +----------------+                        +-------------------+
-> ```
-
----
-
-## 🧩 Microservices Description
-
-### 1. `auth-service`
-- **Responsibilities**:
-  - User registration & login
-  - JWT token generation & validation
-  - Role-based access control
-- **Tech**: Spring Security, JWT, Spring Data JPA
-
-### 2. `pickup-service`
-- **Responsibilities**:
-  - Pickup order creation and status updates
-  - Kafka events to `delivery-service`
-- **Tech**: Spring Boot, Kafka, PostgreSQL, Redis (optional cache)
-
-### 3. `delivery-service`
-- **Responsibilities**:
-  - Delivery assignment and status tracking
-  - Consumes Kafka events from `pickup-service`
-- **Tech**: Spring Boot, Kafka, PostgreSQL
-
----
-
-## ⚙️ Running the System
-
-```bash
-# Start all services
-docker-compose up --build
-
 This will start:
 
 Kafka broker
