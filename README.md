@@ -31,25 +31,24 @@ delivery-system/
 
 > **Ghi chú:** Nếu bạn chưa có ảnh thật sự, bạn có thể tự tạo sơ đồ kiến trúc đơn giản rồi lưu vào thư mục `docs/` trong project với tên `architecture-diagram.png`. Ví dụ sơ đồ nên vẽ như sau:
 
-      +---------+
-      | Client  |
-      +---------+
-           |
-     REST + JWT
-           |
-   +----------------+
-   | auth-service   |
-   +----------------+
-      |                                  |
-REST + JWT                            REST + JWT
-      |                                   |
-+-------------+                  +------------------+
-| pickup-service | <-- Kafka --> | delivery-service |
-+-------------+                 +------------------+
-|    Redis    |                 |       Redis       |
-| PostgreSQL  |                 |       MySQL       |
-+-------------+                 +------------------+
-
+ +---------+
+  | Client  |
+  +---------+
+       |
+ REST + JWT
+       |
++----------------+
+| auth-service |
++----------------+
+| |
+REST + JWT REST + JWT
+| |
++-------------+ +------------------+
+| pickup-service | <-- Kafka (event-driven) --> | delivery-service |
++-------------+ +------------------+
+| Redis | | Redis |
+| PostgreSQL | | MySQL |
++-------------+ +------------------+
 
 ---
 
