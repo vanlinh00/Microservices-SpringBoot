@@ -126,11 +126,3 @@ This project is licensed under the MIT License.
 
 ---
 
-🎯 **Gợi ý để có ảnh sơ đồ kiến trúc**:
-
-Bạn có thể dùng công cụ vẽ sơ đồ online như:
-- [https://app.diagrams.net](https://app.diagrams.net)
-- [https://excalidraw.com](https://excalidraw.com)
-
-Sau đó lưu ảnh dưới tên `architecture-diagram.png` và bỏ vào thư mục `docs/`, rồi push lên GitHub. Link ảnh trong `README` sẽ tự động hoạt động nếu đúng đường dẫn. Nếu bạn muốn, mình có thể giúp bạn tạo sơ đồ sơ khai. Muốn không?
-
