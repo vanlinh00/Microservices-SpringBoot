@@ -30,18 +30,26 @@ delivery-system/
 ![Architecture Diagram](https://raw.githubusercontent.com/vanlinh00/delivery-system/main/docs/architecture-diagram.png)
 
 > **Ghi chú:** Nếu bạn chưa có ảnh thật sự, bạn có thể tự tạo sơ đồ kiến trúc đơn giản rồi lưu vào thư mục `docs/` trong project với tên `architecture-diagram.png`. Ví dụ sơ đồ nên vẽ như sau:
->
-> ```
-> +-------------+       REST        +--------------+         Kafka        +----------------+
-> |  Clients    |  ------------->  | auth-service |  ----------------->  | pickup-service |
-> +-------------+                 +--------------+                       +----------------+
->                                    |                                        |
->                                    |        REST + JWT                     |     REST
->                                    v                                        v
->                             +----------------+                        +-------------------+
->                             | delivery-service| <------------------- |     Redis / DB     |
->                             +----------------+                        +-------------------+
-> ```
+
+      +---------+
+      | Client  |
+      +---------+
+           |
+     REST + JWT
+           |
+   +----------------+
+   | auth-service   |
+   +----------------+
+      |                                  |
+REST + JWT                            REST + JWT
+      |                                   |
++-------------+                  +------------------+
+| pickup-service | <-- Kafka --> | delivery-service |
++-------------+                 +------------------+
+|    Redis    |                 |       Redis       |
+| PostgreSQL  |                 |       MySQL       |
++-------------+                 +------------------+
+
 
 ---
 
