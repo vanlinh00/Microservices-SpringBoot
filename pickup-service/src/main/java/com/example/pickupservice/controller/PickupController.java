@@ -24,5 +24,11 @@ public class PickupController {
         return ResponseEntity.ok("Pickup created successfully.");
     }
 
+    @GetMapping("/ping")
+    public String ping() {
+
+        return "pickup OK";
+    }
+
 
 }

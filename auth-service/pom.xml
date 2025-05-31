@@ -103,6 +103,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>auth-service</finalName> <!-- Đây là phần quan trọng -->
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -110,5 +112,11 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
+
+
+
+
 
 </project>

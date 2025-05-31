@@ -1,0 +1,47 @@
+version: '3.8'  # Phiên bản Docker Compose
+
+services:
+
+  postgres-service:      # Service chạy PostgreSQL, cung cấp database chung cho các service khác
+    image: postgres:15   # Dùng image chính thức PostgreSQL phiên bản 15
+    environment:         # Biến môi trường để cấu hình PostgreSQL khi container khởi động
+      POSTGRES_USER: postgres       # Tên user mặc định cho PostgreSQL
+      POSTGRES_PASSWORD: 12345      # Mật khẩu cho user postgres
+      POSTGRES_DB: postgres          # Tên database mặc định sẽ được tạo khi khởi động
+    ports:
+      - "5432:5432"      # Map cổng 5432 của container ra ngoài máy host (để bạn có thể truy cập trực tiếp nếu cần)
+    networks:
+      - backend-network  # Kết nối container này vào mạng riêng backend-network
+
+  auth-service:
+    build:
+      context: ./auth-service   # Thư mục chứa Dockerfile của service auth-service, dùng để build image
+    image: auth-service:latest  # Tên image và tag sau khi build xong
+    ports:
+      - "8081:8080"             # Map cổng 8080 trong container ra cổng 8081 trên máy host (bạn truy cập auth-service qua localhost:8081)
+    networks:
+      - backend-network         # Kết nối auth-service vào mạng backend-network để có thể giao tiếp với các service khác
+    environment:
+      # Các biến môi trường để cấu hình datasource của Spring Boot (kết nối database)
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/postgres
+      # URL kết nối tới database PostgreSQL, dùng hostname là tên service postgres-service trong Docker network
+      SPRING_DATASOURCE_USERNAME: postgres    # Tên user database
+      SPRING_DATASOURCE_PASSWORD: 12345       # Mật khẩu database
+
+  pickup-service:
+    build:
+      context: ./pickup-service   # Thư mục chứa Dockerfile của pickup-service
+    image: pickup-service:latest  # Tên image và tag
+    ports:
+      - "8082:8082"               # Map cổng 8082 (trái) trong container ra cổng 8082 trên máy host (truy cập pickup-service qua localhost:8082)
+    networks:
+      - backend-network           # Kết nối vào mạng backend-network để giao tiếp với auth-service và postgres-service
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:8080  # Biến môi trường dùng để pickup-service gọi tới auth-service (hostname là tên service trên Docker network)
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/postgres  # Kết nối DB tương tự auth-service
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345
+
+networks:
+  backend-network:
+    driver: bridge    # Loại mạng Docker bridge (mặc định), tạo mạng nội bộ cho các container cùng kết nối và giao tiếp với nhau

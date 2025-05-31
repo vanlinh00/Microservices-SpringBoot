@@ -69,6 +69,9 @@ DaoAuthenticationProvider.authenticate()
 
 → Trả về Authentication đã xác thực + authorities (roles)
 
+
+
+
 ✅ BƯỚC 3: Authentication chứa thông tin user đã xác thực
 
 UsernamePasswordAuthenticationToken [
@@ -77,7 +80,6 @@ UsernamePasswordAuthenticationToken [
   Authenticated = true,
   Authorities = [ROLE_USER]
 ]
-
 
  */
             return ResponseEntity.ok(new AuthResponse(token));

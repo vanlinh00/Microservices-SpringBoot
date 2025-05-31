@@ -30,7 +30,7 @@ public class SecurityConfig {
 
                 // Bước 2:
                 // addFilterBefore(...) chạy trước
-                  .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+              .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 // Bước 3: cho phép các endpoint nào được đi qua
                 .authorizeHttpRequests(auth -> auth
                         //không cần JWT
