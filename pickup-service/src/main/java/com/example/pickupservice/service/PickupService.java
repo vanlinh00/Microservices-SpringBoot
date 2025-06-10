@@ -42,6 +42,7 @@ public class PickupService {
     private final AtomicInteger counter = new AtomicInteger(0);
     private long startTime = 0;
 
+
     /*
     Trong Kafka, mỗi message có metadata như:
             1. partition
@@ -50,6 +51,7 @@ public class PickupService {
             4. key
             5. timestamp
      */
+    /*
     @KafkaListener(
             topics = KafkaTopics.DELIVERY_STATUS_TOPIC,
             groupId = "delivery_group",
@@ -63,6 +65,7 @@ public class PickupService {
                          @Header("kafka_offset") long offset,
                          @Header("kafka_receivedTopic") String topic) {
         try {
+            System.out.println("message" + message);
             if (counter.get() == 0) {
                 startTime = System.currentTimeMillis();
             }
@@ -101,5 +104,31 @@ public class PickupService {
             e.printStackTrace();
         }
     }
+ */
+    @KafkaListener(topics = "delivery-status-topic-3", groupId = "delivery_group")
+    public void listen(String message) {
+        System.out.println("Received message: " + message);
+    }
+
+    /*
+
+    🔧 Bước 1: Truy cập vào container Kafka
+
+docker exec -it kafka_demo bash
+
+    🛠️ Bước 1: Kiểm tra topic đã tồn tại chưa
+
+kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+🛠️ Bước 2: Gửi lại message sau khi topic đã tồn tại
+kafka-console-producer.sh \
+  --bootstrap-server localhost:9092 \
+  --topic delivery-status-topic-3
+
+Gõ message rồi Enter:
+
+{"orderId":123, "status":"SHIPPED"}
+    */
+
 
 }

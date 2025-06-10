@@ -19,7 +19,7 @@ spring:
     show-sql: true
 
   kafka:
-    bootstrap-servers: 192.168.1.235:9092
+    bootstrap-servers: 192.168.1.235:9093
     consumer:
       group-id: delivery_group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
