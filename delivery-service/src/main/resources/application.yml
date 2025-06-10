@@ -1,24 +1,3 @@
-server:
-  port: 8089
-
-#spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/pickupdb?useSSL=false&serverTimezone=UTC
-#    username: root
-#    password: rootpassword
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#
-#  redis:
-#    host: localhost
-#    port: 6379
-#
-
 spring:
-  kafka:
-    bootstrap-servers: kafka-server:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  profiles:
+    active: prod  # default là dev

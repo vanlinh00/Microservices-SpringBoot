@@ -34,28 +34,6 @@ Service (ví dụ: PickupService)
  */
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-//    private final JwtTokenUtil jwtUtil;
-//    @Override
-//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//        final String authHeader = request.getHeader("Authorization");
-//        final String jwt;
-//        final String username;
-//        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//            filterChain.doFilter(request, response);  /// Bỏ qua xác thực JWT
-//            // chạy đến hàm Bước 3 authorizeHttpRequests() trong SecurityConfig
-//            return;
-//        }
-//        jwt = authHeader.substring(7);
-//        username = jwtUtil.extractUsername(jwt);
-//        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//            // Kiểm tra xem token có hợp lệ với thông tin user đó không (hết hạn chưa, chữ ký đúng không, v.v.)
-//            if (!jwtUtil.isTokenValid(jwt, username)) {
-//                throw new IllegalArgumentException(" token hết hạn");
-//            }
-//        }
-//        // Tiếp tục chuyển request đến filter tiếp theo trong chuỗi (ví dụ: authorizeHttpRequests)
-//        filterChain.doFilter(request, response);
-//    }
 
 
     @Autowired

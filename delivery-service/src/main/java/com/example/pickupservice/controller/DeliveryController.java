@@ -1,7 +1,9 @@
 package com.example.pickupservice.controller;
 
 import com.example.pickupservice.dto.CompletedDeliveriesBatch;
+import com.example.pickupservice.dto.OrderStatusChangeEvent;
 import com.example.pickupservice.service.DeliveryCompletedProducer;
+import com.example.pickupservice.service.observerPattern.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DeliveryController {
     private final DeliveryCompletedProducer producer;
+    private final OrderService orderService;
 
     // Lấy danh sách tất cả đơn giao hàng
     @GetMapping
@@ -28,5 +31,10 @@ public class DeliveryController {
         return ResponseEntity.ok("Batch sent from client");
     }
 
+    @PostMapping("/update-status")
+    public ResponseEntity<String> updateOrderStatus(@RequestBody OrderStatusChangeEvent request) {
+        orderService.updateOrderStatus(request.getOrderId(), request.getNewStatus());
+        return ResponseEntity.ok("Order status updated successfully");
+    }
 
 }
