@@ -1,0 +1,9 @@
+spring:
+  main:
+    web-application-type: reactive
+  profiles:
+    active: dev  # default là dev
+
+#  mvn clean
+#  mvn dependency:purge-local-repository
+#  mvn install

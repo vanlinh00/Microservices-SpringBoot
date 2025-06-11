@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+
+  datasource:
+      url: jdbc:postgresql://postgres-service:5432/postgres
+      username: postgres
+      password: 12345
+
+  jpa:
+    properties:
+      hibernate:
+        dialect=org:
+          hibernate:
+            dialect:
+              PostgreSQLDialect:
+
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+jwt:
+  expiration: 2592000 # 30 days = 30 * 24 * 60 * 60
+  secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=

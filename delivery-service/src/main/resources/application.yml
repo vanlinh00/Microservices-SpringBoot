@@ -1,3 +1,3 @@
 spring:
   profiles:
-    active: prod  # default là dev
+    active: dev  # default là dev

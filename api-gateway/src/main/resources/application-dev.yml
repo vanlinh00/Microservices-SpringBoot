@@ -1,0 +1,27 @@
+server:
+  port: 9000  # API Gateway chạy trên cổng 9000
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      routes:
+        - id: auth-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/auth/**
+
+        - id: delivery-service
+          uri: http://localhost:8089
+          predicates:
+            - Path=/delivery/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: pickup-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/pickup/**
+          filters:
+            - name: AuthenticationFilter
